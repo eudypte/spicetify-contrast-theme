@@ -90,12 +90,21 @@ body,
   border-right: var(--c-border) !important;
 }
 
-/* Main view | right sidebar (friends, queue, now playing) */
+/* Main view | right sidebar (friends, queue, now playing).
+   peekContent wraps every right panel; it and its parents clip with an 8px radius. */
 .Root__right-sidebar,
-[data-testid="right-sidebar"],
-aside[aria-label="Friend Activity"],
-aside[aria-label="Listening activity"] {
+.Root__right-sidebar-peekContent {
   border-left: var(--c-border) !important;
+}
+
+[class*="Root__right-sidebar"] {
+  border-radius: 0 !important;
+}
+
+/* Library covers cast 0 4px 60px shadows; stacked, they paint a gray band
+   that the 8px-radius library pane clips into a rounded corner */
+#Desktop_LeftSidebar_Id [class*="legacy-list-row__header-side"] * {
+  box-shadow: none !important;
 }
 
 /* Panes | player bar */
