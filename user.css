@@ -108,6 +108,13 @@ body,
   box-shadow: none !important;
 }
 
+/* Selected (open) playlist in the library: 2px black ring with a white gap around the cover */
+#Desktop_LeftSidebar_Id [role="row"][aria-selected="true"] [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
+  border-radius: 4px !important;
+  outline: 2px solid var(--c-ink) !important;
+  outline-offset: 2px !important;
+}
+
 /* Panes | player bar */
 .Root__now-playing-bar,
 footer[data-testid="now-playing-bar"] {
@@ -389,6 +396,19 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
 }
 
 /* ---------- Glow off, pass 4: playlist header + action bar (from DevTools) ---------- */
+
+/* Home sticky header (All / Music / Podcasts chips): fades in on scroll,
+   colored by an inline album-tinted --background-base, dimmed by a 60% black ::after */
+.Y16RCgx2vlJTrnTIljr5 {
+  --background-base: var(--c-panel) !important;
+  background: var(--c-panel) !important;
+  background-color: var(--c-panel) !important;
+  background-image: none !important;
+}
+
+.Y16RCgx2vlJTrnTIljr5::after {
+  background: none !important;
+}
 
 /* Header backdrop: album color + oklch gradient, plus a radial white wash in ::after */
 .playlist-playlist-mixingBackground,
