@@ -129,6 +129,12 @@ body,
   outline-offset: 2px !important;
 }
 
+/* Press (mouse held): Spotify grows the press layer 4px past the tile (inset: -4px).
+   Keep the darker press gray, but inside the tile. */
+#Desktop_LeftSidebar_Id [role="group"]::after {
+  inset: 0 !important;
+}
+
 /* Focused + selected: black ring goes 1px thicker */
 #Desktop_LeftSidebar_Id [role="row"][aria-selected="true"] [role="group"]:has(:focus-visible) [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
   outline: 3px solid var(--c-ink) !important;
