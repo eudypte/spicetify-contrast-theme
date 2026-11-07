@@ -265,18 +265,20 @@ button[role="checkbox"] > span,
 }
 
 /* ---------- Tooltips ---------- */
-/* Outer box: white, thin black border, no shadow */
-[role="tooltip"],
+/* Outer box: white, thin black border, no shadow.
+   [role="tooltip"] is the inner text span; its parent is the padded box. */
+:has(> [role="tooltip"]),
 .Tooltip,
 [class*="Tooltip"]:not([class*="Tooltip"] [class*="Tooltip"]) {
   background-color: var(--c-panel) !important;
   color: var(--c-ink) !important;
-  border: 1px solid var(--c-ink) !important;
+  border: var(--c-border) !important;
   border-radius: 6px !important;
   box-shadow: none !important;
 }
 
 /* Inner layers: no fill of their own, so only one box shows */
+[role="tooltip"],
 [role="tooltip"] *,
 .Tooltip *,
 [class*="Tooltip"] [class*="Tooltip"] {
