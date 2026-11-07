@@ -1,0 +1,406 @@
+/* Contrast - Finder-style light theme: white panels, black borders, high contrast */
+
+:root {
+  --c-bg: #f3f3f3;          /* window gap, like Finder sidebar */
+  --c-panel: #ffffff;
+  --c-ink: #000000;
+  --c-sub: #6e6e6e;
+  --c-stripe: #f2f2f2;      /* zebra rows */
+  --c-hover: #e8e8e8;
+  --c-press: #dcdcdc;
+  --c-selected: #6e6e6e;    /* Finder selected row */
+  --c-rule: #d0d0d0;
+  --c-border: 2px solid #000;
+  --c-radius-panel: 14px;
+  --c-radius-pill: 999px;
+  --c-radius-row: 7px;
+  --c-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
+/* ---------- Encore (Spotify design system) variables ---------- */
+.encore-dark-theme,
+.encore-dark-theme .encore-base-set,
+.encore-dark-theme .encore-inverted-dark-set,
+.encore-dark-theme .encore-muted-accent-set {
+  --background-base: var(--c-panel) !important;
+  --background-highlight: var(--c-hover) !important;
+  --background-press: var(--c-press) !important;
+  --background-elevated-base: var(--c-panel) !important;
+  --background-elevated-highlight: var(--c-hover) !important;
+  --background-elevated-press: var(--c-press) !important;
+  --background-tinted-base: rgba(0, 0, 0, 0.06) !important;
+  --background-tinted-highlight: rgba(0, 0, 0, 0.1) !important;
+  --background-tinted-press: rgba(0, 0, 0, 0.16) !important;
+  --text-base: var(--c-ink) !important;
+  --text-subdued: var(--c-sub) !important;
+  --text-bright-accent: var(--c-ink) !important;
+  --essential-base: var(--c-ink) !important;
+  --essential-subdued: #8a8a8a !important;
+  --essential-bright-accent: var(--c-ink) !important;
+  --decorative-base: var(--c-ink) !important;
+  --decorative-subdued: var(--c-rule) !important;
+}
+
+/* Green accent buttons become black with white glyphs */
+.encore-dark-theme .encore-bright-accent-set,
+.encore-dark-theme .encore-inverted-light-set {
+  --background-base: var(--c-ink) !important;
+  --background-highlight: #222 !important;
+  --background-press: #333 !important;
+  --text-base: #fff !important;
+  --essential-base: #fff !important;
+}
+
+/* ---------- Type ---------- */
+body,
+.encore-text,
+input,
+button {
+  font-family: var(--c-font) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Window and panels ---------- */
+body,
+.Root__top-container {
+  background-color: var(--c-bg) !important;
+}
+
+/* Seamless panes separated by black rules (Finder sidebar/content split) */
+.Root__top-container {
+  gap: 0 !important;
+  padding: 0 !important;
+}
+
+.Root__nav-bar,
+#Desktop_LeftSidebar_Id,
+.Root__main-view,
+.Root__right-sidebar,
+.Root__now-playing-bar,
+.main-view-container,
+.main-yourLibraryX-library,
+.Root__right-sidebar aside {
+  background-color: var(--c-panel) !important;
+  border-radius: 0 !important;
+}
+
+/* Left library | main view */
+.Root__nav-bar,
+#Desktop_LeftSidebar_Id {
+  border-right: var(--c-border) !important;
+}
+
+/* Main view | right sidebar (friends, queue, now playing) */
+.Root__right-sidebar,
+[data-testid="right-sidebar"],
+aside[aria-label="Friend Activity"],
+aside[aria-label="Listening activity"] {
+  border-left: var(--c-border) !important;
+}
+
+/* Panes | player bar */
+.Root__now-playing-bar,
+footer[data-testid="now-playing-bar"] {
+  border-top: var(--c-border) !important;
+}
+
+/* Resize handles sit on the seams; keep them from drawing their own line */
+.LayoutResizer__resize-bar {
+  background: transparent !important;
+}
+
+/* Remove album-color gradients behind headers */
+/* Glow off: album-color gradients behind top bar, header and action bar */
+.main-entityHeader-backgroundColor,
+.main-entityHeader-overlay,
+.main-entityHeader-shadow,
+.main-actionBarBackground-background,
+.main-home-homeHeader,
+.main-topBar-background,
+.main-topBar-overlay,
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="backgroundColor"],
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="actionBarBackground"],
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="topBar-background"],
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="entityHeader-overlay"],
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="gradient"],
+:is(.Root__main-view, .main-view-container, #main-view, main) [data-testid="background-image"],
+:is(.Root__main-view, .main-view-container, #main-view, main) [data-testid="action-bar"] {
+  background: var(--c-panel) !important;
+  background-color: var(--c-panel) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.main-topBar-background,
+.main-topBar-overlay {
+  opacity: 0 !important;
+}
+
+/* Header text was white for the dark glow; make it ink */
+.main-entityHeader-container,
+.main-entityHeader-container *,
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="entityHeader"] {
+  color: var(--c-ink) !important;
+  text-shadow: none !important;
+}
+
+.main-entityHeader-metaData,
+.main-entityHeader-subtitle {
+  color: var(--c-sub) !important;
+}
+
+
+/* ---------- Track list (Finder list view) ---------- */
+.main-trackList-trackListHeader {
+  background-color: var(--c-panel) !important;
+  border-bottom: var(--c-border) !important;
+}
+
+.main-trackList-trackListRow {
+  border-radius: var(--c-radius-row) !important;
+}
+
+div[role="row"]:nth-child(even) > .main-trackList-trackListRow {
+  background-color: var(--c-stripe);
+}
+
+.main-trackList-trackListRow:hover {
+  background-color: var(--c-hover) !important;
+}
+
+.main-trackList-trackListRow.main-trackList-selected,
+.main-trackList-trackListRow.main-trackList-selected:hover {
+  background-color: var(--c-selected) !important;
+}
+
+.main-trackList-trackListRow.main-trackList-selected *,
+.main-trackList-trackListRow.main-trackList-selected a {
+  color: #fff !important;
+  fill: #fff !important;
+}
+
+/* Keyboard focus ring like Finder's outlined row */
+.main-trackList-trackListRow:focus-visible,
+:focus-visible {
+  outline: 2px solid var(--c-ink) !important;
+  outline-offset: -2px;
+}
+
+/* ---------- Cards ---------- */
+.main-card-card {
+  background-color: var(--c-panel) !important;
+  border: 1.5px solid var(--c-rule) !important;
+  border-radius: 10px !important;
+}
+
+.main-card-card:hover {
+  background-color: var(--c-hover) !important;
+  border-color: var(--c-ink) !important;
+}
+
+/* ---------- Context menu ---------- */
+.main-contextMenu-menu {
+  background-color: var(--c-panel) !important;
+  border: var(--c-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18) !important;
+  padding: 6px !important;
+}
+
+.main-contextMenu-menuItemButton {
+  color: var(--c-ink) !important;
+  border-radius: 6px !important;
+}
+
+.main-contextMenu-menuItemButton:hover,
+.main-contextMenu-menuItemButton:focus {
+  background-color: var(--c-hover) !important;
+}
+
+.main-contextMenu-dividerAfter,
+.main-contextMenu-dividerBefore {
+  border-color: var(--c-rule) !important;
+}
+
+/* ---------- Search and pill controls ---------- */
+.x-searchInput-searchInputInput,
+input[type="search"] {
+  background-color: var(--c-panel) !important;
+  color: var(--c-ink) !important;
+  border: var(--c-border) !important;
+  border-radius: var(--c-radius-pill) !important;
+  box-shadow: none !important;
+}
+
+.main-playButton-PlayButton button,
+.main-playButton-PlayButton > span {
+  background-color: var(--c-ink) !important;
+  color: #fff !important;
+}
+
+.main-playPauseButton-button {
+  background-color: var(--c-ink) !important;
+  color: #fff !important;
+}
+
+/* Tag-style chips (filters) get outlined pills */
+button[role="checkbox"] > span,
+.search-searchCategory-categoryGrid button span {
+  border: 1.5px solid var(--c-ink) !important;
+  border-radius: var(--c-radius-pill) !important;
+}
+
+/* ---------- Player bar ---------- */
+.progress-bar {
+  --bg-color: var(--c-rule) !important;
+  --fg-color: var(--c-ink) !important;
+  --is-active-fg-color: var(--c-ink) !important;
+}
+
+/* ---------- Scrollbars ---------- */
+.os-scrollbar-handle,
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  border-radius: var(--c-radius-pill) !important;
+}
+
+.os-scrollbar-handle:hover,
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ---------- Tooltips ---------- */
+/* Outer box: white, thin black border, no shadow */
+[role="tooltip"],
+.Tooltip,
+[class*="Tooltip"]:not([class*="Tooltip"] [class*="Tooltip"]) {
+  background-color: var(--c-panel) !important;
+  color: var(--c-ink) !important;
+  border: 1px solid var(--c-ink) !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+/* Inner layers: no fill of their own, so only one box shows */
+[role="tooltip"] *,
+.Tooltip *,
+[class*="Tooltip"] [class*="Tooltip"] {
+  background: transparent !important;
+  color: var(--c-ink) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Glow off, pass 2: catch inline colors and pseudo-element gradients ---------- */
+/* Spotify paints the album-color glow with inline styles and ::before/::after gradients,
+   so class-name selectors alone miss it on newer builds. */
+:is(.Root__main-view, .main-view-container, #main-view, main) div[style*="background-color"],
+:is(.Root__main-view, .main-view-container, #main-view, main) section[style*="background-color"],
+:is(.Root__main-view, .main-view-container, #main-view, main) div[style*="gradient"],
+:is(.Root__main-view, .main-view-container, #main-view, main) section[style*="gradient"],
+:is(.Root__main-view, .main-view-container, #main-view, main) div[style*="--background-color"],
+:is(.Root__main-view, .main-view-container, #main-view, main) div[style*="--bgColor"] {
+  background: var(--c-panel) !important;
+  background-color: var(--c-panel) !important;
+  background-image: none !important;
+  --background-color: var(--c-panel) !important;
+  --bgColor: var(--c-panel) !important;
+}
+
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="entityHeader"]::before,
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="entityHeader"]::after,
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="actionBar"]::before,
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="actionBar"]::after,
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="topBar"]::before,
+:is(.Root__main-view, .main-view-container, #main-view, main) [class*="topBar"]::after,
+.main-view-container__scroll-node-child::before,
+.main-view-container__scroll-node-child::after {
+  background: none !important;
+  background-image: none !important;
+}
+
+/* ---------- Library sidebar: gray to white ---------- */
+.Root__nav-bar,
+#Desktop_LeftSidebar_Id,
+.main-yourLibraryX-library,
+.main-yourLibraryX-libraryRootlist,
+.main-rootlist-wrapper,
+.main-yourLibraryX-library > div,
+.main-yourLibraryX-libraryContainer,
+.main-yourLibraryX-header {
+  background-color: var(--c-panel) !important;
+  background-image: none !important;
+}
+
+.main-yourLibraryX-listItem:hover,
+.main-yourLibraryX-listItem [role="button"]:hover {
+  background-color: var(--c-hover) !important;
+}
+
+/* ---------- Glow off, pass 3: exact elements from DevTools ----------
+   Spotify hashes these class names; they hold until the next Spotify update.
+   If the glow returns after an update, rerun the DevTools snippet and swap the class. */
+
+/* Page backdrop: inline album color + linear-gradient(black 60% -> white) + noise texture.
+   This single layer paints the dark top band, the colored header, and the action bar fade. */
+.h1AjDPMDbQn9UTUl6owY {
+  background: var(--c-panel) !important;
+  background-color: var(--c-panel) !important;
+  background-image: none !important;
+}
+
+/* Shelf scroll edges: dark rgba(18,18,18,.7) fades, flipped to white */
+.W7ETd1fZHm0MV0Jqtjeu::before {
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+.W7ETd1fZHm0MV0Jqtjeu::after {
+  background-image: linear-gradient(-90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+/* ---------- Glow off, pass 4: playlist header + action bar (from DevTools) ---------- */
+
+/* Header backdrop: album color + oklch gradient, plus a radial white wash in ::after */
+.playlist-playlist-mixingBackground,
+.A0hGajCN2_Y1J_AjxSJh {
+  --background-base: var(--c-panel) !important;
+  --background-base-min-contrast: var(--c-ink) !important;
+  background: var(--c-panel) !important;
+  background-color: var(--c-panel) !important;
+  background-image: none !important;
+}
+
+.playlist-playlist-mixingBackground::before,
+.playlist-playlist-mixingBackground::after,
+.A0hGajCN2_Y1J_AjxSJh::before,
+.A0hGajCN2_Y1J_AjxSJh::after {
+  background: none !important;
+  background-image: none !important;
+}
+
+/* Action bar fade (play / shuffle / Add / Mix / Name & details row).
+   It also sets album-tinted --background-* vars inline that its children inherit. */
+.rRzDzkFoPB1jsHaUjsDT {
+  --background-base: var(--c-panel) !important;
+  --background-highlight: var(--c-hover) !important;
+  --background-press: var(--c-press) !important;
+  background: var(--c-panel) !important;
+  background-image: none !important;
+}
+
+/* Add / Mix / Name & details pills: white with black border, like the search bar */
+[class*="button-primary__inner"].encore-over-media-set {
+  background-color: var(--c-panel) !important;
+  color: var(--c-ink) !important;
+  border: 1.5px solid var(--c-ink) !important;
+}
+
+button:hover > [class*="button-primary__inner"].encore-over-media-set {
+  background-color: var(--c-hover) !important;
+}
+
+/* Filter-in-playlist search field */
+.i8nXoByFAlBVnQwc9hkz {
+  background-color: var(--c-panel) !important;
+  border: 1.5px solid var(--c-ink) !important;
+  border-radius: var(--c-radius-pill) !important;
+}
