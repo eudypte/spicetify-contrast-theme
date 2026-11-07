@@ -91,9 +91,10 @@ body,
 }
 
 /* Main view | right sidebar (friends, queue, now playing).
-   peekContent wraps every right panel; it and its parents clip with an 8px radius. */
+   peekContent wraps every right panel; it and its parents clip with an 8px radius.
+   Only while expanded: collapsed, the border leaks out as ticks at the top and bottom. */
 .Root__right-sidebar,
-.Root__right-sidebar-peekContent {
+.Root__right-sidebar-expanded .Root__right-sidebar-peekContent {
   border-left: var(--c-border) !important;
 }
 
