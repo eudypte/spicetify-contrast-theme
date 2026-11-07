@@ -404,3 +404,12 @@ button:hover > [class*="button-primary__inner"].encore-over-media-set {
   border: 1.5px solid var(--c-ink) !important;
   border-radius: var(--c-radius-pill) !important;
 }
+
+/* Header image overlay (Discover Weekly etc.): black fade + noise texture,
+   plus an album-color ::after that fades in on scroll. Sibling of the header image. */
+[data-testid="background-image"] + div,
+[data-testid="background-image"] + div::before,
+[data-testid="background-image"] + div::after {
+  background: none !important;
+  background-image: none !important;
+}
