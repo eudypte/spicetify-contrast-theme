@@ -131,11 +131,6 @@ footer[data-testid="now-playing-bar"] {
   box-shadow: none !important;
 }
 
-.main-topBar-background,
-.main-topBar-overlay {
-  opacity: 0 !important;
-}
-
 /* Header text was white for the dark glow; make it ink */
 .main-entityHeader-container,
 .main-entityHeader-container *,
