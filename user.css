@@ -115,6 +115,25 @@ body,
   outline-offset: 2px !important;
 }
 
+/* Keyboard focus in the library: same ring as selected, in gray. The global
+   :focus-visible outline (square) and Spotify's tile outline (rounded) stacked
+   into a thick square frame, so both are turned off here. */
+#Desktop_LeftSidebar_Id [role="group"],
+#Desktop_LeftSidebar_Id [class*="list-row__on-click"]:focus-visible {
+  outline: none !important;
+}
+
+#Desktop_LeftSidebar_Id [role="group"]:has(:focus-visible) [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
+  border-radius: 4px !important;
+  outline: 2px solid var(--c-sub) !important;
+  outline-offset: 2px !important;
+}
+
+/* Focused + selected: black ring goes 1px thicker */
+#Desktop_LeftSidebar_Id [role="row"][aria-selected="true"] [role="group"]:has(:focus-visible) [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
+  outline: 3px solid var(--c-ink) !important;
+}
+
 /* Panes | player bar */
 .Root__now-playing-bar,
 footer[data-testid="now-playing-bar"] {
