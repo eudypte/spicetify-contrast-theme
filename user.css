@@ -248,8 +248,9 @@ input[type="search"] {
   color: #fff !important;
 }
 
-/* Tag-style chips (filters) get outlined pills */
-button[role="checkbox"] > span,
+/* Tag-style chips (filters) get outlined pills.
+   Repeat is also a role="checkbox" button; skip its icon wrapper. */
+button[role="checkbox"] > span:not([class*="icon-wrapper"]),
 .search-searchCategory-categoryGrid button span {
   border: 1.5px solid var(--c-ink) !important;
   border-radius: var(--c-radius-pill) !important;
