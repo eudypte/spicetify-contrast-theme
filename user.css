@@ -240,6 +240,12 @@ div[role="row"]:nth-child(even) > .main-trackList-trackListRow {
   outline-offset: -2px;
 }
 
+/* Spotify focuses <main> after each navigation (for screen readers); after any
+   keyboard use that drew a frame around the whole page. It isn't a control. */
+main:focus-visible {
+  outline: none !important;
+}
+
 /* ---------- Cards ---------- */
 .main-card-card {
   background-color: var(--c-panel) !important;
@@ -480,6 +486,15 @@ button:hover > [class*="button-primary__inner"].encore-over-media-set {
 [data-testid="background-image"] + div,
 [data-testid="background-image"] + div::before,
 [data-testid="background-image"] + div::after {
+  background: none !important;
+  background-image: none !important;
+}
+
+/* Artist header backdrop (LUCKI etc., only some artists): an album-color layer plus a
+   black fade + noise layer, both direct children of the header next to the content */
+.main-entityHeader-container > div:not(.main-entityHeader-contentWrapper),
+.main-entityHeader-container > div:not(.main-entityHeader-contentWrapper)::before,
+.main-entityHeader-container > div:not(.main-entityHeader-contentWrapper)::after {
   background: none !important;
   background-image: none !important;
 }
