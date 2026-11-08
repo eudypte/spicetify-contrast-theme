@@ -465,8 +465,9 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
 }
 
 /* Action bar fade (play / shuffle / Add / Mix / Name & details row).
-   It also sets album-tinted --background-* vars inline that its children inherit. */
-.rRzDzkFoPB1jsHaUjsDT {
+   It also sets album-tinted --background-* vars inline that its children inherit.
+   Selector: the only element whose inline palette includes --background-base-70. */
+[style*="--background-base-70"] {
   --background-base: var(--c-panel) !important;
   --background-highlight: var(--c-hover) !important;
   --background-press: var(--c-press) !important;
