@@ -534,7 +534,8 @@ main [role="search"] > input[role="searchbox"] {
      a hardcoded 8px black outline; keep the cover-up, but in white.
    - The top bar is the overlay child with the inline --header-text-color var;
      its ::before is the black-to-clear scrim.
-   - KWWXuxNH... is the album-color gradient behind the artwork.
+   - The album-color gradient behind the artwork is the first child of the element
+     carrying the inline --cinema-mode-bg-color-from var.
    - ZLr3XMwH... is the artwork, with a large drop shadow. */
 div:has(> .over-cinema-scroll),
 div:has(> .over-cinema-scroll) > div:has(+ .over-cinema-scroll) {
@@ -543,7 +544,7 @@ div:has(> .over-cinema-scroll) > div:has(+ .over-cinema-scroll) {
 div:has(> .over-cinema-scroll) > [style*="--header-text-color"]::before {
   background: none !important;
 }
-.KWWXuxNH4iqU5uEf2xJA {
+[style*="--cinema-mode-bg-color-from"] > div:first-child {
   background: var(--c-panel) !important;
 }
 .ZLr3XMwH2DDfY_kxfvSN {
