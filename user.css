@@ -444,9 +444,11 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
   background: none !important;
 }
 
-/* Header backdrop: album color + oklch gradient, plus a radial white wash in ::after */
+/* Header backdrop: album color + oklch gradient, plus a radial white wash in ::after.
+   Selector: first child of the entity header carrying the inline --background-base color.
+   Playlists also tag it .playlist-playlist-mixingBackground; albums don't. */
 .playlist-playlist-mixingBackground,
-.A0hGajCN2_Y1J_AjxSJh {
+[data-testid="entity-header"] > div:first-child[style*="--background-base"] {
   --background-base: var(--c-panel) !important;
   --background-base-min-contrast: var(--c-ink) !important;
   background: var(--c-panel) !important;
@@ -456,8 +458,8 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
 
 .playlist-playlist-mixingBackground::before,
 .playlist-playlist-mixingBackground::after,
-.A0hGajCN2_Y1J_AjxSJh::before,
-.A0hGajCN2_Y1J_AjxSJh::after {
+[data-testid="entity-header"] > div:first-child[style*="--background-base"]::before,
+[data-testid="entity-header"] > div:first-child[style*="--background-base"]::after {
   background: none !important;
   background-image: none !important;
 }
