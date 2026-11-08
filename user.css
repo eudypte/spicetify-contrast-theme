@@ -432,15 +432,17 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
 /* ---------- Glow off, pass 4: playlist header + action bar (from DevTools) ---------- */
 
 /* Home sticky header (All / Music / Podcasts chips): fades in on scroll,
-   colored by an inline album-tinted --background-base, dimmed by a 60% black ::after */
-.Y16RCgx2vlJTrnTIljr5 {
+   colored by an inline album-tinted --background-base, dimmed by a 60% black ::after.
+   Selector: the empty layer with inline opacity right before the content block holding
+   the chip shelf (the shelf is the element with inline scroll-animation vars). */
+div:empty[style*="opacity"]:has(+ .contentSpacing [style*="--scrollAnimationRangeStart"]) {
   --background-base: var(--c-panel) !important;
   background: var(--c-panel) !important;
   background-color: var(--c-panel) !important;
   background-image: none !important;
 }
 
-.Y16RCgx2vlJTrnTIljr5::after {
+div:empty[style*="opacity"]:has(+ .contentSpacing [style*="--scrollAnimationRangeStart"])::after {
   background: none !important;
 }
 
