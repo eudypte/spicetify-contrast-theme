@@ -420,11 +420,12 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
   background-image: none !important;
 }
 
-/* Shelf scroll edges: dark rgba(18,18,18,.7) fades, flipped to white */
-.W7ETd1fZHm0MV0Jqtjeu::before {
+/* Shelf scroll edges: dark rgba(18,18,18,.7) fades, flipped to white.
+   Selector: the shelf wrapper is the only element with the inline scroll-animation range vars. */
+[style*="--scrollAnimationRangeStart"]::before {
   background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%) !important;
 }
-.W7ETd1fZHm0MV0Jqtjeu::after {
+[style*="--scrollAnimationRangeStart"]::after {
   background-image: linear-gradient(-90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%) !important;
 }
 
