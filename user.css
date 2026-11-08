@@ -486,8 +486,10 @@ button:hover > [class*="button-primary__inner"].encore-over-media-set {
   background-color: var(--c-hover) !important;
 }
 
-/* Filter-in-playlist search field */
-.i8nXoByFAlBVnQwc9hkz {
+/* Filter-in-playlist search field (playlists and Liked Songs).
+   Selector: the searchbox input directly inside a search landmark in the main view
+   (the top-bar search lives outside main). */
+main [role="search"] > input[role="searchbox"] {
   background-color: var(--c-panel) !important;
   border: 1.5px solid var(--c-ink) !important;
   border-radius: var(--c-radius-pill) !important;
