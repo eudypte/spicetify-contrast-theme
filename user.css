@@ -216,25 +216,28 @@ div[role="row"]:nth-child(even) > .main-trackList-trackListRow {
   fill: #fff !important;
 }
 
-/* Now-playing row: Spotify marks it only with a hashed class (evwEyTq8...).
+/* HASHED: re-check after Spotify updates.
+   Now-playing row: Spotify marks it only with its hashed "active" class (evwEyTq8...);
+   while paused nothing readable sets it apart. Fallback for when the class changes:
+   a row showing the equaliser image, which Spotify swaps in only while the track plays.
    Inverted: black row, white text, bold title. Selection (gray) still wins. */
-.main-trackList-trackListRow.evwEyTq8AvbDySiIQC5I:not(.main-trackList-selected),
-.main-trackList-trackListRow.evwEyTq8AvbDySiIQC5I:not(.main-trackList-selected):hover {
+.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected),
+.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected):hover {
   background-color: var(--c-ink) !important;
 }
 
-.main-trackList-trackListRow.evwEyTq8AvbDySiIQC5I:not(.main-trackList-selected) *,
-.main-trackList-trackListRow.evwEyTq8AvbDySiIQC5I:not(.main-trackList-selected) a {
+.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected) *,
+.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected) a {
   color: #fff !important;
   fill: #fff !important;
 }
 
-.main-trackList-trackListRow.evwEyTq8AvbDySiIQC5I .main-trackList-rowTitle {
+.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])) .main-trackList-rowTitle {
   font-weight: 700 !important;
 }
 
 /* Explicit "E" badge: would be black on black, so flip it */
-.main-trackList-trackListRow.evwEyTq8AvbDySiIQC5I:not(.main-trackList-selected) [class*="tag-icon"] {
+.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected) [class*="tag-icon"] {
   background-color: #fff !important;
   color: var(--c-ink) !important;
 }
