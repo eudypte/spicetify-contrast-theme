@@ -11,7 +11,7 @@ Search for **Contrast** in the Spicetify Marketplace Themes tab.
 
 ### Manual
 ```
-git clone https://github.com/<your-username>/spicetify-contrast ~/.config/spicetify/Themes/Contrast
+git clone https://github.com/eudypte/spicetify-contrast ~/.config/spicetify/Themes/Contrast
 spicetify config current_theme Contrast color_scheme base inject_css 1 replace_colors 1
 spicetify apply
 ```
