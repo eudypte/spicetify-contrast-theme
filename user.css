@@ -504,3 +504,13 @@ button:hover > [class*="button-primary__inner"].encore-over-media-set {
   background: none !important;
   background-image: none !important;
 }
+
+/* Lyrics: Spotify sets album colors through inline --lyrics-color-* vars.
+   Black current line, gray for the rest, on white. */
+[style*="--lyrics-color-background"] {
+  --lyrics-color-active: var(--c-ink) !important;
+  --lyrics-color-inactive: var(--c-sub) !important;
+  --lyrics-color-passed: var(--c-sub) !important;
+  --lyrics-color-background: var(--c-panel) !important;
+  --lyrics-color-messaging: var(--c-sub) !important;
+}
