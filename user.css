@@ -411,8 +411,10 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
    If the glow returns after an update, rerun the DevTools snippet and swap the class. */
 
 /* Page backdrop: inline album color + linear-gradient(black 60% -> white) + noise texture.
-   This single layer paints the dark top band, the colored header, and the action bar fade. */
-.h1AjDPMDbQn9UTUl6owY {
+   This single layer paints the dark top band, the colored header, and the action bar fade.
+   Selector: the empty first child of main's wrapper div, carrying an inline background-color
+   (pages built on a <section>, like playlists, don't have it). */
+.main-view-container__scroll-node-child > main > div > div:first-child[style*="background-color"] {
   background: var(--c-panel) !important;
   background-color: var(--c-panel) !important;
   background-image: none !important;
