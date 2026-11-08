@@ -1,14 +1,14 @@
-/* Contrast - Finder-style light theme: white panels, black borders, high contrast */
+/* contrast: a high contrast light theme for Spotify with white surfaces, black borders between panes and no album-color glow */
 
 :root {
-  --c-bg: #f3f3f3;          /* window gap, like Finder sidebar */
+  --c-bg: #f3f3f3;          /* window gap color */
   --c-panel: #ffffff;
   --c-ink: #000000;
   --c-sub: #6e6e6e;
   --c-stripe: #f2f2f2;      /* zebra rows */
   --c-hover: #e8e8e8;
   --c-press: #dcdcdc;
-  --c-selected: #6e6e6e;    /* Finder selected row */
+  --c-selected: #6e6e6e;    /* selected row */
   --c-rule: #d0d0d0;
   --c-border: 2px solid #000;
   --c-radius-panel: 14px;
@@ -17,7 +17,7 @@
   --c-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
 }
 
-/* ---------- Encore (Spotify design system) variables ---------- */
+/* encore design system variables */
 .encore-dark-theme,
 .encore-dark-theme .encore-base-set,
 .encore-dark-theme .encore-inverted-dark-set,
@@ -41,7 +41,7 @@
   --decorative-subdued: var(--c-rule) !important;
 }
 
-/* Green accent buttons become black with white glyphs */
+/* green accent buttons become black with white glyphs */
 .encore-dark-theme .encore-bright-accent-set,
 .encore-dark-theme .encore-inverted-light-set {
   --background-base: var(--c-ink) !important;
@@ -51,7 +51,7 @@
   --essential-base: #fff !important;
 }
 
-/* ---------- Type ---------- */
+/* type */
 body,
 .encore-text,
 input,
@@ -60,13 +60,13 @@ button {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- Window and panels ---------- */
+/* window and panels */
 body,
 .Root__top-container {
   background-color: var(--c-bg) !important;
 }
 
-/* Seamless panes separated by black rules (Finder sidebar/content split) */
+/* seamless panes separated by black rules */
 .Root__top-container {
   gap: 0 !important;
   padding: 0 !important;
@@ -84,15 +84,13 @@ body,
   border-radius: 0 !important;
 }
 
-/* Left library | main view */
+/* border between library and main view */
 .Root__nav-bar,
 #Desktop_LeftSidebar_Id {
   border-right: var(--c-border) !important;
 }
 
-/* Main view | right sidebar (friends, queue, now playing).
-   peekContent wraps every right panel; it and its parents clip with an 8px radius.
-   Only while expanded: collapsed, the border leaks out as ticks at the top and bottom. */
+/* border between main view and right sidebar, only while expanded */
 .Root__right-sidebar,
 .Root__right-sidebar-expanded .Root__right-sidebar-peekContent {
   border-left: var(--c-border) !important;
@@ -102,22 +100,19 @@ body,
   border-radius: 0 !important;
 }
 
-/* List-row covers (library, queue) cast 0 4px 60px shadows; stacked, they paint a gray band
-   (clipped into a rounded corner in the library, a smudge down the queue) */
+/* remove list-row cover shadows that stack into a gray band */
 [class*="legacy-list-row__header-side"] * {
   box-shadow: none !important;
 }
 
-/* Selected (open) playlist in the library: 2px black ring with a white gap around the cover */
+/* selected library item: black ring with a white gap around the cover */
 #Desktop_LeftSidebar_Id [role="row"][aria-selected="true"] [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
   border-radius: 4px !important;
   outline: 2px solid var(--c-ink) !important;
   outline-offset: 2px !important;
 }
 
-/* Keyboard focus in the library: same ring as selected, in gray. The global
-   :focus-visible outline (square) and Spotify's tile outline (rounded) stacked
-   into a thick square frame, so both are turned off here. */
+/* library keyboard focus: drop default outlines and use a gray ring like selected */
 #Desktop_LeftSidebar_Id [role="group"],
 #Desktop_LeftSidebar_Id [class*="list-row__on-click"]:focus-visible {
   outline: none !important;
@@ -129,30 +124,28 @@ body,
   outline-offset: 2px !important;
 }
 
-/* Press (mouse held): Spotify grows the press layer 4px past the tile (inset: -4px).
-   Keep the darker press gray, but inside the tile. */
+/* keep the library press layer inside the tile */
 #Desktop_LeftSidebar_Id [role="group"]::after {
   inset: 0 !important;
 }
 
-/* Focused + selected: black ring goes 1px thicker */
+/* focused and selected library item: thicker black ring */
 #Desktop_LeftSidebar_Id [role="row"][aria-selected="true"] [role="group"]:has(:focus-visible) [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
   outline: 3px solid var(--c-ink) !important;
 }
 
-/* Panes | player bar */
+/* border between panes and player bar */
 .Root__now-playing-bar,
 footer[data-testid="now-playing-bar"] {
   border-top: var(--c-border) !important;
 }
 
-/* Resize handles sit on the seams; keep them from drawing their own line */
+/* resize handles draw no line of their own */
 .LayoutResizer__resize-bar {
   background: transparent !important;
 }
 
-/* Remove album-color gradients behind headers */
-/* Glow off: album-color gradients behind top bar, header and action bar */
+/* remove album-color gradients behind the top bar, header and action bar */
 .main-entityHeader-backgroundColor,
 .main-entityHeader-overlay,
 .main-entityHeader-shadow,
@@ -173,7 +166,7 @@ footer[data-testid="now-playing-bar"] {
   box-shadow: none !important;
 }
 
-/* Header text was white for the dark glow; make it ink */
+/* header text in ink instead of white */
 .main-entityHeader-container,
 .main-entityHeader-container *,
 :is(.Root__main-view, .main-view-container, #main-view, main) [class*="entityHeader"] {
@@ -186,8 +179,7 @@ footer[data-testid="now-playing-bar"] {
   color: var(--c-sub) !important;
 }
 
-
-/* ---------- Track list (Finder list view) ---------- */
+/* track list */
 .main-trackList-trackListHeader {
   background-color: var(--c-panel) !important;
   border-bottom: var(--c-border) !important;
@@ -216,11 +208,7 @@ div[role="row"]:nth-child(even) > .main-trackList-trackListRow {
   fill: #fff !important;
 }
 
-/* HASHED: re-check after Spotify updates.
-   Now-playing row: Spotify marks it only with its hashed "active" class (evwEyTq8...);
-   while paused nothing readable sets it apart. Fallback for when the class changes:
-   a row showing the equaliser image, which Spotify swaps in only while the track plays.
-   Inverted: black row, white text, bold title. Selection (gray) still wins. */
+/* now-playing row: black with white text and bold title (hashed class, equaliser fallback) */
 .main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected),
 .main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected):hover {
   background-color: var(--c-ink) !important;
@@ -236,26 +224,25 @@ div[role="row"]:nth-child(even) > .main-trackList-trackListRow {
   font-weight: 700 !important;
 }
 
-/* Explicit "E" badge: would be black on black, so flip it */
+/* flip the explicit badge so it stays visible on the black row */
 .main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected) [class*="tag-icon"] {
   background-color: #fff !important;
   color: var(--c-ink) !important;
 }
 
-/* Keyboard focus ring like Finder's outlined row */
+/* keyboard focus ring */
 .main-trackList-trackListRow:focus-visible,
 :focus-visible {
   outline: 2px solid var(--c-ink) !important;
   outline-offset: -2px;
 }
 
-/* Spotify focuses <main> after each navigation (for screen readers); after any
-   keyboard use that drew a frame around the whole page. It isn't a control. */
+/* no focus frame around main after navigation */
 main:focus-visible {
   outline: none !important;
 }
 
-/* ---------- Cards ---------- */
+/* cards */
 .main-card-card {
   background-color: var(--c-panel) !important;
   border: 1.5px solid var(--c-rule) !important;
@@ -267,7 +254,7 @@ main:focus-visible {
   border-color: var(--c-ink) !important;
 }
 
-/* ---------- Context menu ---------- */
+/* context menu */
 .main-contextMenu-menu {
   background-color: var(--c-panel) !important;
   border: var(--c-border) !important;
@@ -291,7 +278,7 @@ main:focus-visible {
   border-color: var(--c-rule) !important;
 }
 
-/* ---------- Search and pill controls ---------- */
+/* search and pill controls */
 .x-searchInput-searchInputInput,
 input[type="search"] {
   background-color: var(--c-panel) !important;
@@ -312,22 +299,21 @@ input[type="search"] {
   color: #fff !important;
 }
 
-/* Tag-style chips (filters) get outlined pills.
-   Repeat is also a role="checkbox" button; skip its icon wrapper. */
+/* filter chips as outlined pills, skipping the repeat button icon */
 button[role="checkbox"] > span:not([class*="icon-wrapper"]),
 .search-searchCategory-categoryGrid button span {
   border: 1.5px solid var(--c-ink) !important;
   border-radius: var(--c-radius-pill) !important;
 }
 
-/* ---------- Player bar ---------- */
+/* player bar */
 .progress-bar {
   --bg-color: var(--c-rule) !important;
   --fg-color: var(--c-ink) !important;
   --is-active-fg-color: var(--c-ink) !important;
 }
 
-/* ---------- Scrollbars ---------- */
+/* scrollbars */
 .os-scrollbar-handle,
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.35) !important;
@@ -339,9 +325,8 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
   background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
-/* ---------- Tooltips ---------- */
-/* Outer box: white, thin black border, no shadow.
-   [role="tooltip"] is the inner text span; its parent is the padded box. */
+/* tooltips */
+/* tooltip box: white with a black border and no shadow */
 :has(> [role="tooltip"]),
 .Tooltip,
 [class*="Tooltip"]:not([class*="Tooltip"] [class*="Tooltip"]) {
@@ -352,7 +337,7 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
   box-shadow: none !important;
 }
 
-/* Inner layers: no fill of their own, so only one box shows */
+/* inner tooltip layers stay transparent so only one box shows */
 [role="tooltip"],
 [role="tooltip"] *,
 .Tooltip *,
@@ -363,9 +348,7 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
   box-shadow: none !important;
 }
 
-/* ---------- Glow off, pass 2: catch inline colors and pseudo-element gradients ---------- */
-/* Spotify paints the album-color glow with inline styles and ::before/::after gradients,
-   so class-name selectors alone miss it on newer builds. */
+/* remove album-color glow from inline styles and pseudo-element gradients */
 :is(.Root__main-view, .main-view-container, #main-view, main) div[style*="background-color"],
 :is(.Root__main-view, .main-view-container, #main-view, main) section[style*="background-color"],
 :is(.Root__main-view, .main-view-container, #main-view, main) div[style*="gradient"],
@@ -391,7 +374,7 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
   background-image: none !important;
 }
 
-/* ---------- Library sidebar: gray to white ---------- */
+/* library sidebar in white */
 .Root__nav-bar,
 #Desktop_LeftSidebar_Id,
 .main-yourLibraryX-library,
@@ -409,22 +392,14 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
   background-color: var(--c-hover) !important;
 }
 
-/* ---------- Glow off, pass 3: exact elements from DevTools ----------
-   Spotify hashes these class names; they hold until the next Spotify update.
-   If the glow returns after an update, rerun the DevTools snippet and swap the class. */
-
-/* Page backdrop: inline album color + linear-gradient(black 60% -> white) + noise texture.
-   This single layer paints the dark top band, the colored header, and the action bar fade.
-   Selector: the empty first child of main's wrapper div, carrying an inline background-color
-   (pages built on a <section>, like playlists, don't have it). */
+/* page backdrop: empty first layer with an inline background color */
 .main-view-container__scroll-node-child > main > div > div:first-child[style*="background-color"] {
   background: var(--c-panel) !important;
   background-color: var(--c-panel) !important;
   background-image: none !important;
 }
 
-/* Shelf scroll edges: dark rgba(18,18,18,.7) fades, flipped to white.
-   Selector: the shelf wrapper is the only element with the inline scroll-animation range vars. */
+/* shelf scroll-edge fades in white */
 [style*="--scrollAnimationRangeStart"]::before {
   background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%) !important;
 }
@@ -432,12 +407,7 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
   background-image: linear-gradient(-90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%) !important;
 }
 
-/* ---------- Glow off, pass 4: playlist header + action bar (from DevTools) ---------- */
-
-/* Home sticky header (All / Music / Podcasts chips): fades in on scroll,
-   colored by an inline album-tinted --background-base, dimmed by a 60% black ::after.
-   Selector: the empty layer with inline opacity right before the content block holding
-   the chip shelf (the shelf is the element with inline scroll-animation vars). */
+/* home sticky header: white instead of album-tinted */
 div:empty[style*="opacity"]:has(+ .contentSpacing [style*="--scrollAnimationRangeStart"]) {
   --background-base: var(--c-panel) !important;
   background: var(--c-panel) !important;
@@ -449,9 +419,7 @@ div:empty[style*="opacity"]:has(+ .contentSpacing [style*="--scrollAnimationRang
   background: none !important;
 }
 
-/* Header backdrop: album color + oklch gradient, plus a radial white wash in ::after.
-   Selector: first child of the entity header carrying the inline --background-base color.
-   Playlists also tag it .playlist-playlist-mixingBackground; albums don't. */
+/* playlist and album header backdrop */
 .playlist-playlist-mixingBackground,
 [data-testid="entity-header"] > div:first-child[style*="--background-base"] {
   --background-base: var(--c-panel) !important;
@@ -469,9 +437,7 @@ div:empty[style*="opacity"]:has(+ .contentSpacing [style*="--scrollAnimationRang
   background-image: none !important;
 }
 
-/* Action bar fade (play / shuffle / Add / Mix / Name & details row).
-   It also sets album-tinted --background-* vars inline that its children inherit.
-   Selector: the only element whose inline palette includes --background-base-70. */
+/* action bar fade and its inline album-tinted vars */
 [style*="--background-base-70"] {
   --background-base: var(--c-panel) !important;
   --background-highlight: var(--c-hover) !important;
@@ -480,7 +446,7 @@ div:empty[style*="opacity"]:has(+ .contentSpacing [style*="--scrollAnimationRang
   background-image: none !important;
 }
 
-/* Add / Mix / Name & details pills: white with black border, like the search bar */
+/* action bar pills: white with a black border */
 [class*="button-primary__inner"].encore-over-media-set {
   background-color: var(--c-panel) !important;
   color: var(--c-ink) !important;
@@ -491,17 +457,14 @@ button:hover > [class*="button-primary__inner"].encore-over-media-set {
   background-color: var(--c-hover) !important;
 }
 
-/* Filter-in-playlist search field (playlists and Liked Songs).
-   Selector: the searchbox input directly inside a search landmark in the main view
-   (the top-bar search lives outside main). */
+/* filter search field in playlists */
 main [role="search"] > input[role="searchbox"] {
   background-color: var(--c-panel) !important;
   border: 1.5px solid var(--c-ink) !important;
   border-radius: var(--c-radius-pill) !important;
 }
 
-/* Header image overlay (Discover Weekly etc.): black fade + noise texture,
-   plus an album-color ::after that fades in on scroll. Sibling of the header image. */
+/* header image overlay: no black fade or album-color layer */
 [data-testid="background-image"] + div,
 [data-testid="background-image"] + div::before,
 [data-testid="background-image"] + div::after {
@@ -509,8 +472,7 @@ main [role="search"] > input[role="searchbox"] {
   background-image: none !important;
 }
 
-/* Artist header backdrop (LUCKI etc., only some artists): an album-color layer plus a
-   black fade + noise layer, both direct children of the header next to the content */
+/* artist header backdrop: no album-color or black fade layers */
 .main-entityHeader-container > div:not(.main-entityHeader-contentWrapper),
 .main-entityHeader-container > div:not(.main-entityHeader-contentWrapper)::before,
 .main-entityHeader-container > div:not(.main-entityHeader-contentWrapper)::after {
@@ -518,8 +480,7 @@ main [role="search"] > input[role="searchbox"] {
   background-image: none !important;
 }
 
-/* Lyrics: Spotify sets album colors through inline --lyrics-color-* vars.
-   Black current line, gray for the rest, on white. */
+/* lyrics: black current line, gray for the rest, on white */
 [style*="--lyrics-color-background"] {
   --lyrics-color-active: var(--c-ink) !important;
   --lyrics-color-inactive: var(--c-sub) !important;
@@ -528,34 +489,28 @@ main [role="search"] > input[role="searchbox"] {
   --lyrics-color-messaging: var(--c-sub) !important;
 }
 
-/* Expanded now-playing view ("cinema mode", e.g. the big lyrics page).
-   Parts, all found from stable anchors:
-   - The overlay (the div whose child is .over-cinema-scroll) and its background (the sibling just before .over-cinema-scroll) fill the panel gap with
-     a hardcoded 8px black outline; keep the cover-up, but in white.
-   - The top bar is the overlay child with the inline --header-text-color var;
-     its ::before is the black-to-clear scrim.
-   - The album-color gradient behind the artwork is the first child of the element
-     carrying the inline --cinema-mode-bg-color-from var.
-   - The artwork (a large drop shadow) is the image wrapper inside the overlay's role="img". */
+/* expanded now-playing view: white outline instead of the black panel gap */
 div:has(> .over-cinema-scroll),
 div:has(> .over-cinema-scroll) > div:has(+ .over-cinema-scroll) {
   outline-color: var(--c-panel) !important;
 }
+/* no scrim behind the expanded view top bar */
 div:has(> .over-cinema-scroll) > [style*="--header-text-color"]::before {
   background: none !important;
 }
+/* white backdrop behind the expanded view artwork */
 [style*="--cinema-mode-bg-color-from"] > div:first-child {
   background: var(--c-panel) !important;
 }
+/* no drop shadow on the expanded view artwork */
 div:has(> .over-cinema-scroll) [role="img"] div:has(> img) {
   box-shadow: none !important;
 }
-/* Icon drop-shadows meant for the dark scrim */
+/* icon drop shadows meant for the dark scrim */
 div:has(> .over-cinema-scroll) svg path {
   filter: none !important;
 }
-/* Its top bar sets --header-text-color: #FFF inline (white icons for the dark scrim).
-   Solid white so lyrics don't scroll under it, where they can't be clicked. */
+/* expanded view top bar: solid white with black icons */
 div:has(> .over-cinema-scroll) > [style*="--header-text-color"] {
   --header-text-color: var(--c-ink) !important;
   background-color: var(--c-panel) !important;
