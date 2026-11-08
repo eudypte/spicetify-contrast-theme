@@ -1,0 +1,9 @@
+{
+  "name": "Contrast",
+  "description": "High contrast light theme: white surfaces, black borders, no album-color glow.",
+  "preview": "assets/preview.png",
+  "readme": "README.md",
+  "usercss": "user.css",
+  "schemes": "color.ini",
+  "tags": ["light", "minimal", "high-contrast", "macos"]
+}
