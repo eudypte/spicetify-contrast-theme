@@ -102,9 +102,9 @@ body,
   border-radius: 0 !important;
 }
 
-/* Library covers cast 0 4px 60px shadows; stacked, they paint a gray band
-   that the 8px-radius library pane clips into a rounded corner */
-#Desktop_LeftSidebar_Id [class*="legacy-list-row__header-side"] * {
+/* List-row covers (library, queue) cast 0 4px 60px shadows; stacked, they paint a gray band
+   (clipped into a rounded corner in the library, a smudge down the queue) */
+[class*="legacy-list-row__header-side"] * {
   box-shadow: none !important;
 }
 
