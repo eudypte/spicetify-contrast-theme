@@ -530,12 +530,12 @@ main [role="search"] > input[role="searchbox"] {
 
 /* Expanded now-playing view ("cinema mode", e.g. the big lyrics page).
    Hashed classes:
-   - BKBhMtk7... (overlay) and xT1RZwPY... (its background) fill the panel gap with
+   - The overlay (the div whose child is .over-cinema-scroll) and xT1RZwPY... (its background) fill the panel gap with
      a hardcoded 8px black outline; keep the cover-up, but in white.
    - jS4BIRBs... ::before is the black-to-clear scrim behind the top bar.
    - KWWXuxNH... is the album-color gradient behind the artwork.
    - ZLr3XMwH... is the artwork, with a large drop shadow. */
-.BKBhMtk7_HSsKiFLJtC_,
+div:has(> .over-cinema-scroll),
 .xT1RZwPYcz7B6Ce7d5_5 {
   outline-color: var(--c-panel) !important;
 }
@@ -549,7 +549,7 @@ main [role="search"] > input[role="searchbox"] {
   box-shadow: none !important;
 }
 /* Icon drop-shadows meant for the dark scrim */
-.BKBhMtk7_HSsKiFLJtC_ svg path {
+div:has(> .over-cinema-scroll) svg path {
   filter: none !important;
 }
 /* Its top bar sets --header-text-color: #FFF inline (white icons for the dark scrim).
