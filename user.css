@@ -529,14 +529,14 @@ main [role="search"] > input[role="searchbox"] {
 }
 
 /* Expanded now-playing view ("cinema mode", e.g. the big lyrics page).
-   Hashed classes:
+   Parts, all found from stable anchors:
    - The overlay (the div whose child is .over-cinema-scroll) and its background (the sibling just before .over-cinema-scroll) fill the panel gap with
      a hardcoded 8px black outline; keep the cover-up, but in white.
    - The top bar is the overlay child with the inline --header-text-color var;
      its ::before is the black-to-clear scrim.
    - The album-color gradient behind the artwork is the first child of the element
      carrying the inline --cinema-mode-bg-color-from var.
-   - ZLr3XMwH... is the artwork, with a large drop shadow. */
+   - The artwork (a large drop shadow) is the image wrapper inside the overlay's role="img". */
 div:has(> .over-cinema-scroll),
 div:has(> .over-cinema-scroll) > div:has(+ .over-cinema-scroll) {
   outline-color: var(--c-panel) !important;
@@ -547,7 +547,7 @@ div:has(> .over-cinema-scroll) > [style*="--header-text-color"]::before {
 [style*="--cinema-mode-bg-color-from"] > div:first-child {
   background: var(--c-panel) !important;
 }
-.ZLr3XMwH2DDfY_kxfvSN {
+div:has(> .over-cinema-scroll) [role="img"] div:has(> img) {
   box-shadow: none !important;
 }
 /* Icon drop-shadows meant for the dark scrim */
