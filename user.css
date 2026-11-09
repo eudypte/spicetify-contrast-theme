@@ -464,6 +464,11 @@ main [role="search"] > input[role="searchbox"] {
   border-radius: var(--c-radius-pill) !important;
 }
 
+/* no gray fade behind the shortcut hint in the top bar search */
+[role="search"] span:has(> kbd) {
+  background: none !important;
+}
+
 /* header image overlay: no black fade or album-color layer */
 [data-testid="background-image"] + div,
 [data-testid="background-image"] + div::before,
