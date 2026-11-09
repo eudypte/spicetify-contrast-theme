@@ -1,4 +1,4 @@
-// vim-style shortcuts: H/L history, j/k scroll or move the song selection, J/K next/previous sidebar item
+// vim-style shortcuts: H/L history, j/k scroll or move the song selection, gg/G top/bottom, J/K next/previous sidebar item
 (function init() {
   const history = window.Spicetify?.Platform?.History;
   if (!history) return setTimeout(init, 300);
@@ -6,9 +6,12 @@
   const STEP = 120; // px per tap
   const SPEED = 1500; // px per second while held
 
+  const mainView = () => document.querySelector(".main-view-container [data-overlayscrollbars-viewport]");
+
   // scroll at a steady speed while held, so key repeat doesn't restart the motion
   let dir = 0, held = false, moved = 0, pos = 0, lastT = 0, view = null;
   const tick = (t) => {
+    if (!dir) return; // stopped by gg/G
     let d = (SPEED * Math.min(t - lastT, 50)) / 1000;
     if (!held) d = Math.min(d, Math.max(0, STEP - moved)); // a tap ends exactly one step away
     lastT = t;
@@ -21,12 +24,20 @@
   const scroll = (d) => {
     held = true;
     if (dir === d) return;
-    view = document.querySelector(".main-view-container [data-overlayscrollbars-viewport]");
+    view = mainView();
     if (!view) return;
     const idle = dir === 0;
     dir = d; moved = 0; pos = view.scrollTop;
     if (idle) { lastT = performance.now(); requestAnimationFrame(tick); }
   };
+
+  const jump = (bottom) => {
+    const v = mainView();
+    if (!v) return;
+    dir = 0;
+    v.scrollTop = bottom ? v.scrollHeight : 0;
+  };
+  let lastG = 0; // time of a first g, waiting for the second
 
   // a clicked song keeps focus in its row; spotify moves the selection with the arrow keys
   const moveSong = (d) => {
@@ -61,6 +72,11 @@
     K: () => step(-1),
     j: () => moveSong(1) || scroll(1),
     k: () => moveSong(-1) || scroll(-1),
+    g: () => {
+      const now = performance.now();
+      if (now - lastG < 500) { lastG = 0; jump(false); } else lastG = now;
+    },
+    G: () => jump(true),
   };
   const typing = (e) => e.target.closest?.("input, textarea, select, [contenteditable=''], [contenteditable=true]");
 
@@ -68,7 +84,8 @@
     const act = actions[e.key];
     if (!act || e.metaKey || e.ctrlKey || e.altKey || typing(e)) return;
     e.preventDefault();
-    if (e.repeat && /[HLJK]/.test(e.key)) return;
+    if (e.key !== "g") lastG = 0;
+    if (e.repeat && /[HLJKGg]/.test(e.key)) return;
     act();
   });
   document.addEventListener("keyup", (e) => {
