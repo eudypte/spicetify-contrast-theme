@@ -118,7 +118,7 @@ body,
   outline: none !important;
 }
 
-#Desktop_LeftSidebar_Id [role="group"]:has(:focus-visible) [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
+#Desktop_LeftSidebar_Id [class*="list-row__on-click"]:focus-visible ~ [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
   border-radius: 4px !important;
   outline: 2px solid var(--c-sub) !important;
   outline-offset: 2px !important;
@@ -130,7 +130,7 @@ body,
 }
 
 /* focused and selected library item: thicker black ring */
-#Desktop_LeftSidebar_Id [role="row"][aria-selected="true"] [role="group"]:has(:focus-visible) [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
+#Desktop_LeftSidebar_Id [role="row"][aria-selected="true"] [class*="list-row__on-click"]:focus-visible ~ [class*="list-row__header-side"]:not([class*="header-side-flex"]) {
   outline: 3px solid var(--c-ink) !important;
 }
 
@@ -197,37 +197,49 @@ div[role="row"]:nth-child(even) > .main-trackList-trackListRow {
   background-color: var(--c-hover) !important;
 }
 
-.main-trackList-trackListRow.main-trackList-selected,
-.main-trackList-trackListRow.main-trackList-selected:hover {
+/* selected song: aria-selected covers both mouse and keyboard selection */
+[role="row"][aria-selected="true"] > .main-trackList-trackListRow,
+[role="row"][aria-selected="true"] > .main-trackList-trackListRow:hover {
   background-color: var(--c-selected) !important;
+  border-color: transparent !important;
 }
 
-.main-trackList-trackListRow.main-trackList-selected *,
-.main-trackList-trackListRow.main-trackList-selected a {
+[role="row"][aria-selected="true"] > .main-trackList-trackListRow *,
+[role="row"][aria-selected="true"] > .main-trackList-trackListRow a {
   color: #fff !important;
   fill: #fff !important;
+}
+
+/* the selection already shows where you are: no focus ring or tooltip on its play button */
+[role="row"][aria-selected="true"] > .main-trackList-trackListRow :focus-visible {
+  outline: none !important;
+}
+
+body:has(.main-trackList-rowImagePlayButton:focus-visible) [data-tippy-root]:has(#hover-or-focus-tooltip) {
+  display: none !important;
 }
 
 /* now-playing row: black with white text and bold title (hashed class, equaliser fallback) */
-.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected),
-.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected):hover {
+[role="row"]:not([aria-selected="true"]) > .main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])),
+[role="row"]:not([aria-selected="true"]) > .main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):hover {
   background-color: var(--c-ink) !important;
-}
-
-.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected) *,
-.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected) a {
+  /* white text through inherited colors, much cheaper than styling every descendant */
+  --text-base: #fff !important;
+  --text-subdued: #fff !important;
+  --spice-text: #fff !important;
+  --spice-subtext: #fff !important;
   color: #fff !important;
   fill: #fff !important;
+}
+
+[role="row"]:not([aria-selected="true"]) > .main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])) .main-trackList-rowMarker,
+[role="row"]:not([aria-selected="true"]) > .main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])) .main-trackList-rowTitle,
+[role="row"]:not([aria-selected="true"]) > .main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])) .encore-text {
+  color: #fff !important;
 }
 
 .main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])) .main-trackList-rowTitle {
   font-weight: 700 !important;
-}
-
-/* flip the explicit badge so it stays visible on the black row */
-.main-trackList-trackListRow:is(.evwEyTq8AvbDySiIQC5I, :has(img[src*="equaliser"])):not(.main-trackList-selected) [class*="tag-icon"] {
-  background-color: #fff !important;
-  color: var(--c-ink) !important;
 }
 
 /* keyboard focus ring */
@@ -408,14 +420,14 @@ button[role="checkbox"] > span:not([class*="icon-wrapper"]),
 }
 
 /* home sticky header: white instead of album-tinted */
-div:empty[style*="opacity"]:has(+ .contentSpacing [style*="--scrollAnimationRangeStart"]) {
+div:empty[style*="opacity"]:not(.main-topBar-container > *):has(+ .contentSpacing) {
   --background-base: var(--c-panel) !important;
   background: var(--c-panel) !important;
   background-color: var(--c-panel) !important;
   background-image: none !important;
 }
 
-div:empty[style*="opacity"]:has(+ .contentSpacing [style*="--scrollAnimationRangeStart"])::after {
+div:empty[style*="opacity"]:not(.main-topBar-container > *):has(+ .contentSpacing)::after {
   background: none !important;
 }
 
@@ -495,12 +507,12 @@ main [role="search"] > input[role="searchbox"] {
 }
 
 /* expanded now-playing view: white outline instead of the black panel gap */
-div:has(> .over-cinema-scroll),
-div:has(> .over-cinema-scroll) > div:has(+ .over-cinema-scroll) {
+.Root > div > div:has(> .over-cinema-scroll),
+[style*="--header-buttons-hover-bg"] + div {
   outline-color: var(--c-panel) !important;
 }
 /* no scrim behind the expanded view top bar */
-div:has(> .over-cinema-scroll) > [style*="--header-text-color"]::before {
+[style*="--header-buttons-hover-bg"]::before {
   background: none !important;
 }
 /* white backdrop behind the expanded view artwork */
@@ -508,15 +520,16 @@ div:has(> .over-cinema-scroll) > [style*="--header-text-color"]::before {
   background: var(--c-panel) !important;
 }
 /* no drop shadow on the expanded view artwork */
-div:has(> .over-cinema-scroll) [role="img"] div:has(> img) {
+[style*="--header-buttons-hover-bg"] ~ * [role="img"] div {
   box-shadow: none !important;
 }
 /* icon drop shadows meant for the dark scrim */
-div:has(> .over-cinema-scroll) svg path {
+[style*="--header-buttons-hover-bg"] svg path,
+[style*="--header-buttons-hover-bg"] ~ * svg path {
   filter: none !important;
 }
 /* expanded view top bar: solid white with black icons */
-div:has(> .over-cinema-scroll) > [style*="--header-text-color"] {
+[style*="--header-buttons-hover-bg"] {
   --header-text-color: var(--c-ink) !important;
   background-color: var(--c-panel) !important;
 }
