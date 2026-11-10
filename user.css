@@ -189,7 +189,7 @@ footer[data-testid="now-playing-bar"] {
   border-radius: var(--c-radius-row) !important;
 }
 
-div[role="row"]:nth-child(even) > .main-trackList-trackListRow {
+div[role="row"]:is([aria-rowindex$="0"], [aria-rowindex$="2"], [aria-rowindex$="4"], [aria-rowindex$="6"], [aria-rowindex$="8"]) > .main-trackList-trackListRow {
   background-color: var(--c-stripe);
 }
 
