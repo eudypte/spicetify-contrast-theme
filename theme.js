@@ -58,19 +58,38 @@
 
   // sidebar rows are virtualized, so only rendered rows can be stepped through
   const rowUri = (r) => r.querySelector("[id^='listrow-title-']").id.slice(14);
+  const navigableRow = (r) => {
+    const uri = rowUri(r);
+    return !uri.includes(":folder:") && uri !== "spotify:playlist:37i9dQZF1EYkqdzj48dyYq"; // DJ starts playback
+  };
+  const libraryRows = () => [...document.querySelectorAll("#Desktop_LeftSidebar_Id [role=row]:has([id^='listrow-title-'])")]
+    .sort((a, b) => a.ariaRowIndex - b.ariaRowIndex);
+  const sidebarRows = () => libraryRows().filter(navigableRow);
   let last = null; // liked songs never gets aria-selected, so remember the last row opened
+  const openSidebarRow = (row) => {
+    last = rowUri(row);
+    history.push(Spicetify.URI.fromString(last).toURLPath(true));
+    row.scrollIntoView({ block: "nearest" });
+  };
   const step = (d) => {
-    const rows = [...document.querySelectorAll("#Desktop_LeftSidebar_Id [role=row]:has([id^='listrow-title-'])")]
-      .filter((r) => !rowUri(r).includes(":folder:")) // folders have no page to open
-      .sort((a, b) => a.ariaRowIndex - b.ariaRowIndex);
+    const rows = sidebarRows();
     if (!rows.length) return;
     let cur = rows.findIndex((r) => r.ariaSelected === "true");
     if (cur === -1) cur = rows.findIndex((r) => rowUri(r) === last);
     const next = rows[cur === -1 ? (d > 0 ? 0 : rows.length - 1) : cur + d];
     if (!next) return;
-    last = rowUri(next);
-    history.push(Spicetify.URI.fromString(last).toURLPath(true));
-    next.scrollIntoView({ block: "nearest" });
+    openSidebarRow(next);
+  };
+  const openSidebarItem = (n) => {
+    let index = 1, position = 0;
+    for (const row of libraryRows()) {
+      if (Number(row.ariaRowIndex) !== index++) return false; // a preceding row is not rendered
+      if (!navigableRow(row)) continue;
+      if (++position !== n) continue;
+      openSidebarRow(row);
+      return true;
+    }
+    return false;
   };
 
   const actions = {
@@ -100,6 +119,10 @@
   }, true);
 
   document.addEventListener("keydown", (e) => {
+    if (e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey && /^[1-3]$/.test(e.key)) {
+      if (openSidebarItem(Number(e.key))) e.preventDefault();
+      return;
+    }
     const act = actions[e.key];
     if (!act || e.metaKey || e.ctrlKey || e.altKey || typing(e)) return;
     if (e.key === "i" && (!lastG || performance.now() - lastG >= 500)) return;

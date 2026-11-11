@@ -271,6 +271,11 @@ main:focus-visible {
   border-color: var(--c-ink) !important;
 }
 
+/* Browse category cards */
+section[data-shelf="shelf"][aria-label="Browse all"] [role="listitem"] > a > div {
+  border: var(--c-border) !important;
+}
+
 /* context menu */
 .main-contextMenu-menu {
   background-color: var(--c-panel) !important;
