@@ -1,4 +1,4 @@
-// vim-style shortcuts: H/L history, j/k scroll or move the song selection, gg/G top/bottom, J/K next/previous sidebar item
+// vim-style shortcuts: H/L history, j/k scroll or move the song selection, gg/G top/bottom, gi search, J/K next/previous sidebar item
 (function init() {
   const history = window.Spicetify?.Platform?.History;
   if (!history) return setTimeout(init, 300);
@@ -38,6 +38,14 @@
     v.scrollTop = bottom ? v.scrollHeight : 0;
   };
   let lastG = 0; // time of a first g, waiting for the second
+  const focusSearch = () => {
+    if (history.location.pathname.startsWith("/playlist/")) {
+      const page = document.querySelector("[data-testid='playlist-page']");
+      const input = page?.querySelector("input[aria-label='Search in playlist']");
+      if (input?.getAttribute("aria-hidden") === "false") input.focus();
+      else page?.querySelector("button[aria-label='Search in playlist']")?.click();
+    } else document.querySelector("input[data-top-bar-search]")?.focus();
+  };
 
   // a clicked song keeps focus in its row; spotify moves the selection with the arrow keys
   const moveSong = (d) => {
@@ -76,13 +84,25 @@
       const now = performance.now();
       if (now - lastG < 500) { lastG = 0; jump(false); } else lastG = now;
     },
+    i: focusSearch,
     G: () => jump(true),
   };
   const typing = (e) => e.target.closest?.("input, textarea, select, [contenteditable=''], [contenteditable=true]");
 
   document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || !e.target.matches?.("input[data-top-bar-search]")) return;
+    // Spotify handles Escape in search; move focus after its handler has run.
+    setTimeout(() => {
+      if (document.activeElement !== e.target) return;
+      e.target.blur();
+      mainView()?.focus();
+    }, 0);
+  }, true);
+
+  document.addEventListener("keydown", (e) => {
     const act = actions[e.key];
     if (!act || e.metaKey || e.ctrlKey || e.altKey || typing(e)) return;
+    if (e.key === "i" && (!lastG || performance.now() - lastG >= 500)) return;
     e.preventDefault();
     if (e.key !== "g") lastG = 0;
     if (e.repeat && /[HLJKGg]/.test(e.key)) return;
