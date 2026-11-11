@@ -100,8 +100,8 @@ body,
   border-radius: 0 !important;
 }
 
-/* no scroll shadow under the Listening activity panel header */
-aside[aria-label="Listening activity"] div:has(> div > span > [data-testid="PanelHeader_CloseButton"]) {
+/* no scroll shadow under right-side panel headers */
+#Desktop_PanelContainer_Id div:has(> div > span > [data-testid="PanelHeader_CloseButton"]) {
   box-shadow: none !important;
 }
 
