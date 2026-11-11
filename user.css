@@ -100,6 +100,11 @@ body,
   border-radius: 0 !important;
 }
 
+/* no scroll shadow under the Listening activity panel header */
+aside[aria-label="Listening activity"] div:has(> div > span > [data-testid="PanelHeader_CloseButton"]) {
+  box-shadow: none !important;
+}
+
 /* remove list-row cover shadows that stack into a gray band */
 [class*="legacy-list-row__header-side"] * {
   box-shadow: none !important;
