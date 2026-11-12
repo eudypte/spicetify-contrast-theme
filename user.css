@@ -105,6 +105,11 @@ body,
   box-shadow: none !important;
 }
 
+/* no scroll shadow under the library header */
+#Desktop_LeftSidebar_Id div:has(> header) {
+  box-shadow: none !important;
+}
+
 /* remove list-row cover shadows that stack into a gray band */
 [class*="legacy-list-row__header-side"] * {
   box-shadow: none !important;
@@ -188,6 +193,7 @@ footer[data-testid="now-playing-bar"] {
 .main-trackList-trackListHeader {
   background-color: var(--c-panel) !important;
   border-bottom: var(--c-border) !important;
+  box-shadow: none !important;
 }
 
 .main-trackList-trackListRow {
