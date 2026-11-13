@@ -492,6 +492,11 @@ main [role="search"] > input[role="searchbox"] {
   border-radius: var(--c-radius-pill) !important;
 }
 
+/* matched search text on the black highlight */
+mark {
+  color: var(--c-panel) !important;
+}
+
 /* no gray fade behind the shortcut hint in the top bar search */
 [role="search"] span:has(> kbd) {
   background: none !important;
