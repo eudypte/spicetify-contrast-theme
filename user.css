@@ -105,6 +105,11 @@ body,
   box-shadow: none !important;
 }
 
+/* no scroll shadow under the Now Playing view header */
+#Desktop_PanelContainer_Id [data-npv-root] > div:first-child {
+  box-shadow: none !important;
+}
+
 /* no scroll shadow under the library header */
 #Desktop_LeftSidebar_Id div:has(> header) {
   box-shadow: none !important;
